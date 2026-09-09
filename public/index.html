@@ -16,7 +16,7 @@
                 <div class="logo">✦</div>
                 <div>
                     <h1>5XAI</h1>
-                    <span>LOCAL AI</span>
+                    <span>AI ASSISTANT</span>
                 </div>
             </div>
 
@@ -27,11 +27,23 @@
             <div class="welcome">
                 <div class="welcome-logo">✦</div>
                 <h2>Welcome to 5XAI</h2>
-                <p>Your private local AI assistant.</p>
+                <p>Your AI assistant.</p>
             </div>
         </section>
 
         <form id="chat-form" class="input-area">
+
+            <label class="camera-button" title="Take or upload a photo">
+                📷
+                <input
+                    id="image-input"
+                    type="file"
+                    accept="image/*"
+                    capture="environment"
+                    hidden
+                />
+            </label>
+
             <input
                 id="message"
                 type="text"
@@ -45,4 +57,4 @@
 
     <script src="app.js"></script>
 </body>
-</html> 
+</html>

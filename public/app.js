@@ -1,6 +1,11 @@
 const form = document.getElementById("chat-form");
 const input = document.getElementById("message");
 const chat = document.getElementById("chat");
+const imageInput = document.getElementById("image-input");
+
+const conversation = [];
+
+let selectedImage = null;
 
 function addMessage(text, type) {
     const message = document.createElement("div");
@@ -14,19 +19,60 @@ function addMessage(text, type) {
 
     chat.appendChild(message);
     chat.scrollTop = chat.scrollHeight;
+
+    return message;
 }
+
+imageInput.addEventListener("change", async () => {
+    const file = imageInput.files[0];
+
+    if (!file) return;
+
+    if (!file.type.startsWith("image/")) {
+        alert("Please choose an image.");
+        return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = () => {
+        selectedImage = {
+            name: file.name,
+            data: reader.result
+        };
+
+        addMessage(`📷 ${file.name} selected`, "user");
+    };
+
+    reader.readAsDataURL(file);
+});
 
 form.addEventListener("submit", async (event) => {
     event.preventDefault();
 
     const text = input.value.trim();
 
-    if (!text) return;
+    if (!text && !selectedImage) return;
 
-    addMessage(text, "user");
+    const userText = text || "Please analyze this image.";
+
+    addMessage(
+        selectedImage
+            ? `📷 ${userText}`
+            : userText,
+        "user"
+    );
+
     input.value = "";
 
-    addMessage("5XAI is thinking...", "ai");
+    const userMessage = {
+        role: "user",
+        content: userText
+    };
+
+    conversation.push(userMessage);
+
+    const thinking = addMessage("5XAI is thinking...", "ai");
 
     try {
         const response = await fetch("/api/chat", {
@@ -35,25 +81,33 @@ form.addEventListener("submit", async (event) => {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                message: text
+                messages: conversation,
+                image: selectedImage ? selectedImage.data : null
             })
         });
 
         const data = await response.json();
 
-        const messages = document.querySelectorAll(".message.ai");
-        const thinking = messages[messages.length - 1];
-
-        if (data.reply) {
-            thinking.textContent = data.reply;
-        } else {
-            thinking.textContent = "I couldn't get a response.";
+        if (!response.ok) {
+            throw new Error(data.error || "Request failed");
         }
+
+        thinking.textContent = data.reply;
+
+        conversation.push({
+            role: "assistant",
+            content: data.reply
+        });
+
+        selectedImage = null;
+        imageInput.value = "";
+
     } catch (error) {
-        const messages = document.querySelectorAll(".message.ai");
-        const thinking = messages[messages.length - 1];
+        console.error(error);
 
         thinking.textContent =
-            "5XAI couldn't connect to the local AI server.";
+            "Sorry, 5XAI couldn't analyze the request.";
+
+        conversation.pop();
     }
-}); 
+});
