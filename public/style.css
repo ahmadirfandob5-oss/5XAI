@@ -1,0 +1,215 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #050509;
+    color: #f5f5f5;
+    overflow: hidden;
+}
+
+.background-glow {
+    position: fixed;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    background: rgba(120, 0, 255, 0.18);
+    filter: blur(130px);
+    top: -150px;
+    left: 50%;
+    transform: translateX(-50%);
+    pointer-events: none;
+}
+
+.app {
+    width: min(1100px, 94vw);
+    height: 92vh;
+    margin: 4vh auto;
+    display: flex;
+    flex-direction: column;
+    background: rgba(10, 10, 18, 0.88);
+    border: 1px solid rgba(170, 80, 255, 0.25);
+    border-radius: 24px;
+    box-shadow:
+        0 0 40px rgba(100, 0, 255, 0.12),
+        inset 0 0 30px rgba(255, 255, 255, 0.015);
+    backdrop-filter: blur(20px);
+    overflow: hidden;
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo,
+.welcome-logo {
+    display: grid;
+    place-items: center;
+    color: #d98cff;
+    text-shadow: 0 0 18px #b64cff;
+}
+
+.logo {
+    width: 42px;
+    height: 42px;
+    border-radius: 14px;
+    font-size: 23px;
+    background: rgba(180, 60, 255, 0.12);
+    border: 1px solid rgba(200, 100, 255, 0.28);
+    box-shadow: 0 0 22px rgba(170, 60, 255, 0.18);
+}
+
+.brand h1 {
+    font-size: 19px;
+    letter-spacing: 3px;
+}
+
+.brand span {
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: #888;
+}
+
+.settings {
+    border: 0;
+    background: transparent;
+    color: #aaa;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.settings:hover {
+    color: #d98cff;
+    text-shadow: 0 0 12px #b64cff;
+}
+
+.chat {
+    flex: 1;
+    overflow-y: auto;
+    padding: 30px;
+}
+
+.welcome {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.welcome-logo {
+    font-size: 52px;
+    margin-bottom: 12px;
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+.welcome h2 {
+    font-size: 28px;
+    margin-bottom: 8px;
+}
+
+.welcome p {
+    color: #888;
+}
+
+.message {
+    max-width: 78%;
+    padding: 13px 16px;
+    border-radius: 16px;
+    margin-bottom: 14px;
+    line-height: 1.5;
+    white-space: pre-wrap;
+}
+
+.user {
+    margin-left: auto;
+    background: linear-gradient(135deg, #6825a8, #9b3cff);
+    box-shadow: 0 0 22px rgba(155, 60, 255, 0.15);
+}
+
+.ai {
+    margin-right: auto;
+    background: rgba(255, 255, 255, 0.045);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.input-area {
+    display: flex;
+    gap: 10px;
+    padding: 18px;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.input-area input {
+    flex: 1;
+    border: 1px solid rgba(170, 80, 255, 0.18);
+    outline: none;
+    border-radius: 15px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.04);
+    color: white;
+    font-size: 15px;
+}
+
+.input-area input:focus {
+    border-color: rgba(190, 90, 255, 0.55);
+    box-shadow: 0 0 18px rgba(160, 50, 255, 0.10);
+}
+
+.input-area button {
+    width: 52px;
+    border: 0;
+    border-radius: 15px;
+    cursor: pointer;
+    background: linear-gradient(135deg, #7625c6, #b14dff);
+    color: white;
+    font-size: 20px;
+    box-shadow: 0 0 22px rgba(170, 60, 255, 0.25);
+}
+
+.input-area button:hover {
+    transform: translateY(-1px);
+}
+
+@keyframes glow {
+    from {
+        opacity: 0.7;
+        transform: scale(1);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1.08);
+    }
+}
+
+@media (max-width: 700px) {
+    .app {
+        width: 100%;
+        height: 100vh;
+        margin: 0;
+        border-radius: 0;
+    }
+
+    .chat {
+        padding: 18px;
+    }
+
+    .message {
+        max-width: 88%;
+    }
+}
