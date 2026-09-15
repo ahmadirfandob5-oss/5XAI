@@ -1,0 +1,21 @@
+{
+  "name": "5xai",
+  "version": "2.0.0",
+  "description": "5XAI - a web AI assistant with chat memory, image/file input, and optional web search.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": ["ai", "chat", "5xai"],
+  "license": "ISC",
+  "type": "commonjs",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "openai": "^7.10.0"
+  }
+}

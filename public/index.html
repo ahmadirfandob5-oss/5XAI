@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#07070d">
+    <meta name="description" content="5XAI - AI assistant">
+    <title>5XAI</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="background-glow"></div>
+
+    <main class="app">
+        <aside id="sidebar" class="sidebar">
+            <div class="sidebar-top">
+                <div class="sidebar-brand">
+                    <div class="logo">✦</div>
+                    <div>
+                        <div class="brand-name">5XAI</div>
+                        <div class="brand-subtitle">AI ASSISTANT</div>
+                    </div>
+                </div>
+                <button id="close-sidebar" class="icon-button mobile-only" type="button" aria-label="Close menu">✕</button>
+            </div>
+
+            <button id="new-chat" class="new-chat-button" type="button"><span>＋</span> New chat</button>
+            <div class="sidebar-label">Your chats</div>
+            <div id="history-list" class="history-list"></div>
+
+            <div class="sidebar-bottom">
+                <button id="export-all" class="secondary-button" type="button">Export chats</button>
+                <button id="clear-history" class="danger-button" type="button">Clear history</button>
+            </div>
+        </aside>
+
+        <section class="workspace">
+            <header class="topbar">
+                <div class="topbar-left">
+                    <button id="open-sidebar" class="icon-button" type="button" aria-label="Open chats">☰</button>
+                    <div>
+                        <div id="current-title" class="current-title">New chat</div>
+                        <div class="status-line">
+                            <span class="status-dot"></span>
+                            <span id="status-text">Ready</span>
+                        </div>
+                    </div>
+                </div>
+
+                <button id="settings-button" class="icon-button" type="button" aria-label="Open settings">⚙</button>
+            </header>
+
+            <section id="chat" class="chat" aria-live="polite"></section>
+            <section id="attachment-preview" class="attachment-preview hidden"></section>
+
+            <form id="chat-form" class="composer">
+                <div class="composer-tools">
+                    <label class="tool-button" title="Take or upload image">
+                        📷
+                        <input id="image-input" type="file" accept="image/*" capture="environment" hidden>
+                    </label>
+
+                    <label class="tool-button" title="Attach a file">
+                        📎
+                        <input id="file-input" type="file" accept=".txt,.md,.csv,.json,.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx" hidden>
+                    </label>
+
+                    <button id="web-search-button" class="tool-button" type="button" title="Web search" aria-pressed="false">🌐</button>
+                    <button id="mic-button" class="tool-button" type="button" title="Voice input" aria-label="Voice input">🎤</button>
+                </div>
+
+                <textarea id="message" rows="1" placeholder="Message 5XAI..." autocomplete="off"></textarea>
+                <button id="send-button" class="send-button" type="submit" aria-label="Send">➤</button>
+            </form>
+
+            <div class="composer-note">5XAI can make mistakes. Check important information.</div>
+        </section>
+    </main>
+
+    <div id="settings-overlay" class="settings-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="settings-title">
+        <div class="dialog-card">
+            <div class="dialog-header">
+                <h2 id="settings-title">Settings</h2>
+                <button id="close-settings" class="icon-button" type="button" aria-label="Close settings">✕</button>
+            </div>
+
+            <label class="setting-row">
+                <span>AI model</span>
+                <select id="model-setting">
+                    <option value="gpt-5.6-luna">GPT-5.6 Luna</option>
+                    <option value="gpt-5.6-terra">GPT-5.6 Terra</option>
+                    <option value="gpt-5.6-sol">GPT-5.6 Sol</option>
+                </select>
+            </label>
+
+            <label class="setting-row">
+                <span>Enter sends message</span>
+                <input id="enter-setting" type="checkbox" checked>
+            </label>
+
+            <label class="setting-row">
+                <span>Auto speak AI replies</span>
+                <input id="auto-speak-setting" type="checkbox">
+            </label>
+
+            <p class="settings-note">Settings are saved in this browser. Your API key is never stored in browser settings.</p>
+        </div>
+    </div>
+
+    <template id="welcome-template">
+        <div class="welcome">
+            <div class="welcome-logo">✦</div>
+            <h1>Welcome to 5XAI</h1>
+            <p>Your AI assistant for chatting, images, files, voice, and optional web search.</p>
+            <div class="quick-actions">
+                <button type="button" data-prompt="Explain quantum computing in simple words.">Explain something</button>
+                <button type="button" data-prompt="Help me plan a study schedule.">Help me plan</button>
+                <button type="button" data-prompt="Give me ideas for a small website project.">Give me ideas</button>
+            </div>
+        </div>
+    </template>
+
+    <script src="app.js"></script>
+</body>
+</html>
